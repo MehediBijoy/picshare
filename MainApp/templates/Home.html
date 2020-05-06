@@ -1,0 +1,23 @@
+{% extends 'Base.html' %}
+
+{% block body %}
+    <div class="mt-2">
+        <div class="row">
+        {% for im in images %}
+            <div class="card text-center col-4 mb-2 px-0">
+              <div class="card-header"> {{ im.title }} </div>
+              <div class="card-body">
+                  <a href="{% url 'image_details' im.id %}"><img src="{{ im.image.url }}" class="img-thumbnail" alt=""></a>
+              </div>
+              <div class="card-footer text-muted"> {{ im.user }} </div>
+                <form action="{% url 'image_delete' %}" method="post">
+                    {% csrf_token %}
+                    {% if im.user == user %}
+                        <span class="badge badge-primary badge-pill"><button type="submit" name="image_id" value="{{ im.id}}" class="btn btn-primary">Delete</button></span>
+                    {% endif %}
+                </form>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+{% endblock %}

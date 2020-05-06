@@ -1,0 +1,8 @@
+{% extends 'Base.html' %}
+{% block body %}
+    <div>
+        <h3>Are you want ot login again ??</h3>
+        <button><a href="{% url 'login' %}">login</a></button>
+        <button><a href="{% url 'home_view' %}">Back to home</a></button>
+    </div>
+{% endblock %}

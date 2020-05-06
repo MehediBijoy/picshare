@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PicShare</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body style="height:1500px">
+<div class="container">
+  <h2 class="text-center">Photo Share Website</h2>
+</div>
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
+  <a class="navbar-brand ml-5" href="{% url 'home_view' %}">Home</a>
+  <ul class="navbar-nav">
+      {% if user.is_authenticated %}
+        <li class="nav-item"><a class="nav-link" href="{% url 'image_upload' %}">Image Upload</a></li>
+        <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">logout</a></li>
+        <li class="nav-item"><a href="{% url 'profile' user.username %}" class="nav-link"> {{ user.username }} </a></li>
+      {% else %}
+        <li class="nav-item"><a href="{% url 'user_register' %}" class="nav-link"> Registration </a></li>
+        <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">login</a></li>
+      {% endif %}
+  </ul>
+</nav>
+
+<main class="container">
+    {% block body %}
+    {% endblock %}
+</main>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>

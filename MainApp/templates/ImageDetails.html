@@ -1,0 +1,30 @@
+{% extends 'Base.html' %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+    <div>
+        <h3>{{ object.title }}</h3>
+        <img src="{{ object.image.url }}" class="img-fluid" alt="Responsive image">
+        <h5>total likes is {{ object.likes.count }} </h5>
+        {% if user.is_authenticated %}
+            <form action="{% url 'image_like' %}" method="post">
+                {% csrf_token %}
+                {% if is_liked %}
+                    <button type="submit" name="image_id" value="{{ object.id }}" class="btn btn-danger"> Unlike </button>
+                {% else %}
+                    <button type="submit" name="image_id" value="{{ object.id }}" class="btn btn-primary"> Like </button>
+                {% endif %}
+            </form>
+            <form method="post" action="{% url 'image_comment' %}">
+                {% csrf_token %}
+                {{ form | crispy }}
+                <button type="submit" name="image_id" value="{{ object.id }}" class="btn btn-primary">Add comment</button>
+            </form>
+        {% endif %}
+        <ul class="list-group">
+        {% for com in comments %}
+                <li class="list-group-item">{{ com.comment }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
